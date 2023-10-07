@@ -78,3 +78,51 @@ In order to make our bashh scripts executable we need to change linux permission
 We need to be carefule with using Initg, as it won't rerun when restarting an existing workspace.
 
 [Gitpod Lifecycle](https://www.gitpod.io/docs/configure/workspaces/workspace-lifecycle)
+
+### Working w/ Env Vars
+
+We can list out all Environment Variables (Env Vars) using the `env` command.
+
+We can filter specific env vars using grep ie `env | grep -i AWS_`
+
+#### Setting and Unsetting Env Vars
+
+In the terminal we can set using `export HELLO='world'`
+
+In the terminal we can unset using `unset HELLO`
+
+We can set an env var temporarily, by just running a command:
+```sh
+HELLO='world' ./bin/print_message
+```
+Within a bash script we can set env without writing export ie
+```sh
+#!/usr/bin/env bash
+
+HELLO='world'
+
+echo $HELLO
+```
+
+#### Printing Vars
+
+We can print an env var using `echo` ie 
+`echo $HELLO`
+
+#### Scoping of Env Vars
+
+When you open up new bash terminals in VSCode it will not be aware of env vars that you have set in another window.
+
+If you want to Env Var to persist across all future terminal, you need to set env var in your terminal profile/s.
+
+#### Persisting Env Vars in Gitpod
+
+We can persist env vars in gitpod by storing them in Gitpod Secrets Storage.
+
+```
+gp env HELLO='world'
+```
+
+All future workspaces launched will set the env vars for all bash terminals opened in those workspaces.
+
+You can also set env vars in the `.gitpod.yml` bit this should only contain non-sensitive env vars.
